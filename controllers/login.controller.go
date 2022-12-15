@@ -18,7 +18,7 @@ func CheckLogin(c echo.Context) error {
 	id, res, err := models.CheckLogin(username, password)
 	fmt.Println(id)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{
+		return c.JSON(http.StatusBadRequest, map[string]string{
 			"message": err.Error(),
 		})
 	}

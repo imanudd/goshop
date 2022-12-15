@@ -1,0 +1,799 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Go-Shop
+  contact: {}
+host: localhost:2020
+basePath: /
+securityDefinitions: {}
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /register:
+    post:
+      summary: localhost:2020/register
+      tags:
+      - Misc
+      operationId: localhost:2020/register
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: username
+        in: formData
+        required: true
+        type: string
+        description: ''
+      - name: email
+        in: formData
+        required: true
+        type: string
+        description: ''
+      - name: address
+        in: formData
+        required: true
+        type: string
+        description: ''
+      - name: phone_number
+        in: formData
+        required: true
+        type: integer
+        format: int64
+        description: ''
+      - name: password
+        in: formData
+        required: true
+        type: string
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1register'
+          examples:
+            application/json:
+              status: 201
+              message: sukses
+              data:
+                Last_Inserted_id: 15
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:34:53 GMT
+            Content-Length:
+              type: string
+              default: '65'
+  /login:
+    post:
+      summary: localhost:2020/login?username=user2&password=test222
+      tags:
+      - Misc
+      operationId: localhost:2020/login?username=user2&password=test222
+      deprecated: false
+      produces:
+      - application/json; charset=UTF-8
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: username
+        in: query
+        required: true
+        type: string
+        description: ''
+      - name: password
+        in: query
+        required: true
+        type: string
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1login%3Fusername%3Duser2%26password%3Dtest222'
+          examples:
+            application/json; charset=UTF-8:
+              token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoidXNlcjIiLCJleHAiOjE2NzEzNTk4Mjh9._7slr_uhNcwKDQOTjdObrJ9W2zVcDT5xeV80xOTwJlw
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:37:08 GMT
+            Content-Length:
+              type: string
+              default: '154'
+  /viewproduct:
+    get:
+      summary: localhost:2020/viewproduct?category_id=4
+      tags:
+      - Misc
+      operationId: localhost:2020/viewproduct?category_id=4
+      deprecated: false
+      produces:
+      - application/json; charset=UTF-8
+      parameters:
+      - name: Authorization
+        in: header
+        required: false
+        default: Bearer {token}
+        type: string
+      - name: category_id
+        in: query
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1viewproduct%3Fcategory_id%3D4'
+          examples:
+            application/json; charset=UTF-8:
+              status: 200
+              message: Succsess
+              data:
+              - id: 15
+                category_id: '4'
+                product_name: WHISKAS CAN ADULT TUNA
+                weight: 400GR
+                price: 23000
+              - id: 16
+                category_id: '4'
+                product_name: WHISKAS CAN JUNIOR TUNA
+                weight: 400GR
+                price: 23000
+              - id: 17
+                category_id: '4'
+                product_name: LIFECAT CAN ADULT TUNA
+                weight: 400GR
+                price: 17000
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:38:22 GMT
+            Content-Length:
+              type: string
+              default: '343'
+  /cart:
+    get:
+      summary: localhost:2020/cart
+      tags:
+      - Misc
+      operationId: localhost:2020/cart
+      deprecated: false
+      produces:
+      - application/json; charset=UTF-8
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1cart'
+          examples:
+            application/json; charset=UTF-8:
+              status: 200
+              message: Succsess
+              data:
+              - id: 53
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: BOLT
+                weight: 1KG
+                price: 23000
+                qty: 3
+                total: 69000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 51
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: ROYAL CANIN
+                weight: 1KG
+                price: 100000
+                qty: 3
+                total: 300000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 50
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 4
+                product_name: LIFECAT CAN ADULT TUNA
+                weight: 400GR
+                price: 17000
+                qty: 3
+                total: 51000
+                created_at: 0001-01-01T00:00:00Z
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:40:19 GMT
+            Content-Length:
+              type: string
+              default: '689'
+      security: []
+    post:
+      summary: localhost:2020/cart
+      tags:
+      - Misc
+      operationId: Postlocalhost:2020/cart
+      deprecated: false
+      produces:
+      - application/json; charset=UTF-8
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: product_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      - name: qty
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1cart'
+          examples:
+            application/json; charset=UTF-8:
+              status: 200
+              message: Succsess
+              data:
+              - id: 53
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: BOLT
+                weight: 1KG
+                price: 23000
+                qty: 3
+                total: 69000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 51
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: ROYAL CANIN
+                weight: 1KG
+                price: 100000
+                qty: 3
+                total: 300000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 50
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 4
+                product_name: LIFECAT CAN ADULT TUNA
+                weight: 400GR
+                price: 17000
+                qty: 3
+                total: 51000
+                created_at: 0001-01-01T00:00:00Z
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:40:19 GMT
+            Content-Length:
+              type: string
+              default: '689'
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1cart'
+          examples:
+            application/json; charset=UTF-8:
+              status: 201
+              message: sukses
+              data:
+              - id: 53
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: BOLT
+                weight: 1KG
+                price: 23000
+                qty: 3
+                total: 69000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 51
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: ROYAL CANIN
+                weight: 1KG
+                price: 100000
+                qty: 3
+                total: 300000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 50
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 4
+                product_name: LIFECAT CAN ADULT TUNA
+                weight: 400GR
+                price: 17000
+                qty: 3
+                total: 51000
+                created_at: 0001-01-01T00:00:00Z
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:42:00 GMT
+            Content-Length:
+              type: string
+              default: '687'
+      security: []
+    delete:
+      summary: localhost:2020/cart
+      tags:
+      - Misc
+      operationId: Deletelocalhost:2020/cart
+      deprecated: false
+      produces:
+      - application/json; charset=UTF-8
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: cart_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1cart'
+          examples:
+            application/json; charset=UTF-8:
+              status: 200
+              message: Succsess
+              data:
+              - id: 53
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: BOLT
+                weight: 1KG
+                price: 23000
+                qty: 3
+                total: 69000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 51
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: ROYAL CANIN
+                weight: 1KG
+                price: 100000
+                qty: 3
+                total: 300000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 50
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 4
+                product_name: LIFECAT CAN ADULT TUNA
+                weight: 400GR
+                price: 17000
+                qty: 3
+                total: 51000
+                created_at: 0001-01-01T00:00:00Z
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:40:19 GMT
+            Content-Length:
+              type: string
+              default: '689'
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1cart'
+          examples:
+            application/json; charset=UTF-8:
+              status: 201
+              message: sukses
+              data:
+              - id: 53
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: BOLT
+                weight: 1KG
+                price: 23000
+                qty: 3
+                total: 69000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 51
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 1
+                product_name: ROYAL CANIN
+                weight: 1KG
+                price: 100000
+                qty: 3
+                total: 300000
+                created_at: 0001-01-01T00:00:00Z
+              - id: 50
+                user_id: 15
+                product_id: 0
+                username: user2
+                email: user1@gmail.com
+                category: 4
+                product_name: LIFECAT CAN ADULT TUNA
+                weight: 400GR
+                price: 17000
+                qty: 3
+                total: 51000
+                created_at: 0001-01-01T00:00:00Z
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:42:00 GMT
+            Content-Length:
+              type: string
+              default: '687'
+      security: []
+  /transaction:
+    post:
+      summary: localhost:2020/transaction
+      tags:
+      - Misc
+      operationId: localhost:2020/transaction
+      deprecated: false
+      produces:
+      - application/json; charset=UTF-8
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - name: payment_id
+        in: formData
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/localhost%3A2020~1transaction'
+          examples:
+            application/json; charset=UTF-8:
+              status: 201
+              message: sukses
+              data: null
+          headers:
+            Date:
+              type: string
+              default: Thu, 15 Dec 2022 10:45:33 GMT
+            Content-Length:
+              type: string
+              default: '46'
+      security: []
+definitions:
+  localhost:2020/register:
+    title: localhost:2020/register
+    example:
+      status: 201
+      message: sukses
+      data:
+        Last_Inserted_id: 15
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      message:
+        type: string
+      data:
+        $ref: '#/definitions/Data'
+    required:
+    - status
+    - message
+    - data
+  Data:
+    title: Data
+    example:
+      Last_Inserted_id: 15
+    type: object
+    properties:
+      Last_Inserted_id:
+        type: integer
+        format: int32
+    required:
+    - Last_Inserted_id
+  localhost:2020/login?username=user2&password=test222:
+    title: localhost:2020/login?username=user2&password=test222
+    example:
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoidXNlcjIiLCJleHAiOjE2NzEzNTk4Mjh9._7slr_uhNcwKDQOTjdObrJ9W2zVcDT5xeV80xOTwJlw
+    type: object
+    properties:
+      token:
+        type: string
+    required:
+    - token
+  localhost:2020/viewproduct?category_id=4:
+    title: localhost:2020/viewproduct?category_id=4
+    example:
+      status: 200
+      message: Succsess
+      data:
+      - id: 15
+        category_id: '4'
+        product_name: WHISKAS CAN ADULT TUNA
+        weight: 400GR
+        price: 23000
+      - id: 16
+        category_id: '4'
+        product_name: WHISKAS CAN JUNIOR TUNA
+        weight: 400GR
+        price: 23000
+      - id: 17
+        category_id: '4'
+        product_name: LIFECAT CAN ADULT TUNA
+        weight: 400GR
+        price: 17000
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      message:
+        type: string
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Data1'
+    required:
+    - status
+    - message
+    - data
+  Data1:
+    title: Data1
+    example:
+      id: 15
+      category_id: '4'
+      product_name: WHISKAS CAN ADULT TUNA
+      weight: 400GR
+      price: 23000
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      category_id:
+        type: string
+      product_name:
+        type: string
+      weight:
+        type: string
+      price:
+        type: integer
+        format: int32
+    required:
+    - id
+    - category_id
+    - product_name
+    - weight
+    - price
+  localhost:2020/cart:
+    title: localhost:2020/cart
+    example:
+      status: 200
+      message: Succsess
+      data:
+      - id: 53
+        user_id: 15
+        product_id: 0
+        username: user2
+        email: user1@gmail.com
+        category: 1
+        product_name: BOLT
+        weight: 1KG
+        price: 23000
+        qty: 3
+        total: 69000
+        created_at: 0001-01-01T00:00:00Z
+      - id: 51
+        user_id: 15
+        product_id: 0
+        username: user2
+        email: user1@gmail.com
+        category: 1
+        product_name: ROYAL CANIN
+        weight: 1KG
+        price: 100000
+        qty: 3
+        total: 300000
+        created_at: 0001-01-01T00:00:00Z
+      - id: 50
+        user_id: 15
+        product_id: 0
+        username: user2
+        email: user1@gmail.com
+        category: 4
+        product_name: LIFECAT CAN ADULT TUNA
+        weight: 400GR
+        price: 17000
+        qty: 3
+        total: 51000
+        created_at: 0001-01-01T00:00:00Z
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      message:
+        type: string
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Data2'
+    required:
+    - status
+    - message
+    - data
+  Data2:
+    title: Data2
+    example:
+      id: 53
+      user_id: 15
+      product_id: 0
+      username: user2
+      email: user1@gmail.com
+      category: 1
+      product_name: BOLT
+      weight: 1KG
+      price: 23000
+      qty: 3
+      total: 69000
+      created_at: 0001-01-01T00:00:00Z
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      user_id:
+        type: integer
+        format: int32
+      product_id:
+        type: integer
+        format: int32
+      username:
+        type: string
+      email:
+        type: string
+      category:
+        type: integer
+        format: int32
+      product_name:
+        type: string
+      weight:
+        type: string
+      price:
+        type: integer
+        format: int32
+      qty:
+        type: integer
+        format: int32
+      total:
+        type: integer
+        format: int32
+      created_at:
+        type: string
+    required:
+    - id
+    - user_id
+    - product_id
+    - username
+    - email
+    - category
+    - product_name
+    - weight
+    - price
+    - qty
+    - total
+    - created_at
+  localhost:2020/cart5:
+    title: localhost:2020/cart5
+    example:
+      status: 200
+      message: SUKSES DELETE CART
+      data:
+        rowaffected: 1
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      message:
+        type: string
+      data:
+        $ref: '#/definitions/Data7'
+    required:
+    - status
+    - message
+    - data
+  Data7:
+    title: Data7
+    example:
+      rowaffected: 1
+    type: object
+    properties:
+      rowaffected:
+        type: integer
+        format: int32
+    required:
+    - rowaffected
+  localhost:2020/transaction:
+    title: localhost:2020/transaction
+    example:
+      status: 201
+      message: sukses
+      data: null
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      message:
+        type: string
+      data:
+        type: string
+    required:
+    - status
+    - message
+    - data
+security: []
+tags:
+- name: Misc
+  description: ''
