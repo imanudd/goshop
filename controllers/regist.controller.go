@@ -11,7 +11,7 @@ import (
 func Register(c echo.Context) error {
 	username := c.FormValue("username")
 	email := c.FormValue("email")
-	phonenumber := c.FormValue("phonenumber")
+	phonenumber := c.FormValue("phone_number")
 	address := c.FormValue("address")
 	password := c.FormValue("password")
 	hashpass, _ := helper.HashPassword(password)

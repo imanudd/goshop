@@ -2,39 +2,35 @@ package models
 
 import (
 	"Go-Shop/connection"
-	"fmt"
+	"Go-Shop/helper"
 	"net/http"
-	"strings"
 )
 
 type Product struct {
 	Id          int    `json:"id"`
-	Category    string `json:"category"`
-	ProductName string `json:"productname"`
+	Category_Id string `json:"category_id"`
+	ProductName string `json:"product_name"`
 	Weight      string `json:"weight"`
 	Price       int    `json:"price"`
 }
 
 var err error
 
-func SearchByCategory(category string) (Response, error) {
+func SearchByCategory(category_id int) (helper.Response, error) {
 	var product Product
 	var arrproduct []Product
-	var res Response
-	con := connection.ConnectDB()
-	defer connection.ConnectDB().Close()
-	category = strings.ToUpper(category)
+	var con = connection.Init()
+	var res helper.Response
 
-	fmt.Println(category)
-	sqlStatement := "SELECT * FROM products WHERE category = $1"
+	sqlStatement := "SELECT * FROM products WHERE category_id = $1"
 
-	rows, err := con.Query(sqlStatement, category)
+	rows, err := con.Query(sqlStatement, category_id)
 	if err != nil {
 		panic(err)
 	}
 	defer rows.Close()
 	for rows.Next() {
-		err = rows.Scan(&product.Id, &product.Category, &product.ProductName, &product.Weight, &product.Price)
+		err = rows.Scan(&product.Id, &product.Category_Id, &product.ProductName, &product.Weight, &product.Price)
 		if err != nil {
 			return res, err
 		}

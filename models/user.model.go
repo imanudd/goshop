@@ -1,7 +1,6 @@
 package models
 
 import (
-	"Go-Shop/connection"
 	"Go-Shop/helper"
 	"database/sql"
 	"fmt"
@@ -15,15 +14,12 @@ type User struct {
 	Username    string `json:"username"`
 	Email       string `json:"email"`
 	Address     string `json:"address"`
-	PhoneNumber string `json:"phonenumber"`
+	PhoneNumber string `json:"phone_number"`
 }
 
 func CheckLogin(username, password string) (int, bool, error) {
 	var obj User
 	var pwd string
-
-	con := connection.ConnectDB()
-
 	sqlStatement := "SELECT id,username,password FROM users WHERE username = $1"
 
 	err := con.QueryRow(sqlStatement, username).Scan(&obj.Id, &obj.Username, &pwd)
@@ -47,11 +43,8 @@ func CheckLogin(username, password string) (int, bool, error) {
 	return obj.Id, true, nil
 }
 
-func Register(username, password, email, address, phonenumber string) (Response, error) {
-	var res Response
+func Register(username, password, email, address, phonenumber string) (helper.Response, error) {
 	var id int64
-	con := connection.ConnectDB()
-
 	sqlStatment := "INSERT INTO users (username,password,email,address,phone_number) VALUES ($1,$2,$3,$4,$5) RETURNING id"
 	stmt, err := con.Prepare(sqlStatment)
 	if err != nil {
@@ -64,7 +57,7 @@ func Register(username, password, email, address, phonenumber string) (Response,
 	if err != nil {
 		return res, err
 	}
-	res.Status = http.StatusOK
+	res.Status = http.StatusCreated
 	res.Message = "sukses"
 	res.Data = map[string]int64{
 		"Last_Inserted_id": id,

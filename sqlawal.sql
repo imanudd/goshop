@@ -3,18 +3,26 @@ id SERIAL PRIMARY KEY,
 username VARCHAR(50) NOT NULL,
 password varchar(255) NOT NULL
 email VARCHAR(30) NOT NULL,
-Phonenumber VARCHAR(15) NOT NULL,
-Address text NOT NULL,
+phone_number VARCHAR(15) NOT NULL,
+address text NOT NULL,
 
 );
 
 CREATE TABLE products (
 id SERIAL PRIMARY KEY,
-category VARCHAR(40) NOT NULL,
+category_id INT NOT NULL,
 product_name VARCHAR(50) NOT NULL,
 weight varchar(10) not null,
-price int not null
+price INT NOT NULL,
+CONSTRAINT fk_category_id_products 
+	FOREIGN KEY (category_id)
+	REFERENCES categories(id)
 );
+
+CREATE TABLE categories (
+id SERIAL PRIMARY KEY,
+category_name VARCHAR(40) NOT NULL
+)
 
 
 CREATE TABLE transactions (
@@ -26,7 +34,7 @@ total INT NOT NULL,
 	
 CONSTRAINT fk_user_transaction 
 	FOREIGN KEY (user_id)
-	REFERENCES cart(id),
+	REFERENCES users(id),
 
 CONSTRAINT fk_payment_transaction 
 	FOREIGN KEY (payment_id)
@@ -53,25 +61,36 @@ CONSTRAINT fk_user_cart
 	
 CONSTRAINT fk_product_cart 
 	FOREIGN KEY (product_id)
-	REFERENCES products(id)
+	REFERENCES products(id)	
 );
 
 
 INSERT INTO products (product_name,category,weight,price)
 VALUES 
-('BOLT','DRY FOOD','1KG',23000),
-('ORICAT','DRY FOOD','1KG',23000),
-('PROPLAN','DRY FOOD','500GR',40000),
-('ROYAL CANIN','DRY FOOD','1KG',100000),
-('WHISKAS ADULT TUNA','WET FOOD','400GR',7000),
-('WHISKAS JUNIOR TUNA','WET FOOD','400GR',7000),
-('LIFECAT ADULT TUNA','WET FOOD','400GR',6000),
-('KALUNG','ACCESORIES','-',20000),
-('TONGKAT BULU','ACCESORIES','-',20000),
-('BAJU','ACCESORIES','-',20000);
+('BOLT',1,'1KG',23000),
+('ORICAT',1,'1KG',23000),
+('PROPLAN',1,'500GR',40000),
+('ROYAL CANIN',1,'1KG',100000),
+('WHISKAS CAN ADULT TUNA',4,'400GR',23000),
+('WHISKAS CAN JUNIOR TUNA',4,'400GR',23000),
+('LIFECAT CAN ADULT TUNA',4,'400GR',17000),
+('WHISKAS POUCH ADULT TUNA',3,'75GR',7000),
+('WHISKAS POUCH JUNIOR TUNA',3,'75GR',7000),
+('LIFECAT POUCH ADULT TUNA',3,'75GR',6000),
+('KALUNG',5,'-',20000),
+('TONGKAT BULU',5,'-',20000),
+('BAJU',5,'-',20000);
 
 INSERT INTO payments (payment_method) VALUES
 ('CASH'),
 ('BCA'),
 ('BNI'),
 ('GOPAY');
+
+INSERT INTO categories (category_name) VALUES 
+('DRY FOOD'),
+('WET FOOD'),
+('WET POUCH'),
+('WET CANNED'),
+('ACCESORIES'),
+('CAT LITTER');

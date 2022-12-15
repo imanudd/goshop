@@ -2,17 +2,17 @@ package controllers
 
 import (
 	"Go-Shop/models"
-	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
 
 func SearchByCategory(c echo.Context) error {
-	category := c.FormValue("category")
-	fmt.Println(category)
+	category_id := c.FormValue("category_id")
+	conv_category_id, _ := strconv.Atoi(category_id)
 
-	res, err := models.SearchByCategory(category)
+	res, err := models.SearchByCategory(conv_category_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),

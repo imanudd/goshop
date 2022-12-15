@@ -2,6 +2,7 @@ package models
 
 import (
 	"Go-Shop/connection"
+	"Go-Shop/helper"
 	"net/http"
 	"time"
 )
@@ -14,10 +15,10 @@ type Transaction struct {
 	Total      int       `json:"total"`
 }
 
-func AddTransaction(user_id, payment_id int) (Response, error) {
-	var res Response
+func AddTransaction(user_id, payment_id int) (helper.Response, error) {
 	var total int
-	con := connection.ConnectDB()
+	var con = connection.Init()
+	var res helper.Response
 	totalquery := "SELECT sum(total) as total from cart where user_id = $1"
 	err = con.QueryRow(totalquery, user_id).Scan(&total)
 
@@ -28,12 +29,11 @@ func AddTransaction(user_id, payment_id int) (Response, error) {
 	}
 	defer stmt.Close()
 
-	// err = stmt.QueryRow(&cart_id, &payment_id, time.Now(), &total)
 	_, err = stmt.Exec(user_id, payment_id, time.Now(), total)
 	if err != nil {
 		return res, err
 	}
-	res.Status = http.StatusOK
+	res.Status = http.StatusCreated
 	res.Message = "sukses"
 	return res, nil
 

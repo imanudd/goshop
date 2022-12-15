@@ -17,9 +17,11 @@ const (
 )
 
 var psqlinfo = fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+var db *sql.DB
+var err error
 
-func ConnectDB() *sql.DB {
-	db, err := sql.Open("postgres", psqlinfo)
+func Init() *sql.DB {
+	db, err = sql.Open("postgres", psqlinfo)
 	if err != nil {
 		log.Fatalf("Connection Fail !")
 	}
@@ -28,6 +30,5 @@ func ConnectDB() *sql.DB {
 	if err != nil {
 		panic(err)
 	}
-
 	return db
 }

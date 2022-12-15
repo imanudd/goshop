@@ -17,9 +17,11 @@ func Init() *echo.Echo {
 	e.POST("/register", controllers.Register)
 	e.POST("/login", controllers.CheckLogin)
 	e.GET("/viewproduct", controllers.SearchByCategory)
+
 	e.POST("/cart", controllers.AddToCart, middleware.IsAuth)
 	e.GET("/cart", controllers.ShowMyCart, middleware.IsAuth)
 	e.DELETE("/cart", controllers.DeleteCart, middleware.IsAuth)
+
 	e.POST("/transaction", controllers.AddTransaction, middleware.IsAuth)
 
 	// e.GET("/detailuser", controllers.FetchAllData, middleware.JWTWithConfig(middleware.JWTConfig{SigningKey: []byte("secret")}))
