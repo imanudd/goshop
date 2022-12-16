@@ -10,12 +10,11 @@ import (
 )
 
 func AddToCart(c echo.Context) error {
-	user_id := middleware.GetID(c)
-	product_id := c.FormValue("product_id")
-	qty := c.FormValue("qty")
-	conv_qty, _ := strconv.Atoi(qty)
-	conv_product_id, _ := strconv.Atoi(product_id)
-	result, err := models.AddToCart(user_id, conv_qty, conv_product_id)
+	claims := middleware.GetID(c)
+	product_id, _ := strconv.Atoi(c.FormValue("product_id"))
+	qty, _ := strconv.Atoi(c.FormValue("qty"))
+
+	result, err := models.AddToCart(claims.Id, qty, product_id)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
@@ -25,8 +24,8 @@ func AddToCart(c echo.Context) error {
 }
 
 func ShowMyCart(c echo.Context) error {
-	user_id := middleware.GetID(c)
-	res, err := models.ShowMyCart(user_id)
+	claims := middleware.GetID(c)
+	res, err := models.ShowMyCart(claims.Id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -36,10 +35,9 @@ func ShowMyCart(c echo.Context) error {
 }
 
 func DeleteCart(c echo.Context) error {
-	user_id := middleware.GetID(c)
-	cart_id := c.FormValue("cart_id")
-	conv_cart_id, _ := strconv.Atoi(cart_id)
-	result, err := models.DeleteCart(conv_cart_id, user_id)
+	claims := middleware.GetID(c)
+	cart_id, _ := strconv.Atoi(c.FormValue("cart_id"))
+	result, err := models.DeleteCart(cart_id, claims.Id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),

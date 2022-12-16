@@ -55,8 +55,10 @@ func ShowMyCart(id int) (helper.Response, error) {
 	var cart Cart
 	var arrcart []Cart
 
-	fieldselected := "users.username,users.email,products.category_id,products.product_name,products.price,products.weight,cart.id,cart.user_id,cart.qty"
-	sqlStatement := "SELECT " + fieldselected + "  FROM cart JOIN users ON cart.user_id = users.id JOIN products ON cart.product_id = products.id where user_id = $1 ORDER BY id desc"
+	cart_query := "cart.id,cart.user_id,cart.qty"
+	user_query := "users.username,users.email"
+	product_query := "products.category_id,products.product_name,products.price,products.weight"
+	sqlStatement := "SELECT " + user_query + "," + product_query + "," + cart_query + " FROM cart JOIN users ON cart.user_id = users.id JOIN products ON cart.product_id = products.id where user_id = $1 ORDER BY id desc"
 
 	rows, err := con.Query(sqlStatement, id)
 	if err != nil {

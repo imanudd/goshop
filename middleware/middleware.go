@@ -16,10 +16,9 @@ var IsAuth = middleware.JWTWithConfig(middleware.JWTConfig{
 	Claims:     &JwtCustomClaims{},
 	SigningKey: []byte("secret")})
 
-func GetID(c echo.Context) int {
+func GetID(c echo.Context) JwtCustomClaims {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(*JwtCustomClaims)
-	user_id := claims.Id
 
-	return user_id
+	return *claims
 }
