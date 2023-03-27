@@ -19,6 +19,5 @@ var IsAuth = middleware.JWTWithConfig(middleware.JWTConfig{
 func GetID(c echo.Context) JwtCustomClaims {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(*JwtCustomClaims)
-
 	return *claims
 }

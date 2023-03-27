@@ -3,7 +3,6 @@ package models
 import (
 	"Go-Shop/connection"
 	"Go-Shop/helper"
-	"fmt"
 	"net/http"
 	"time"
 )
@@ -33,7 +32,7 @@ func AddToCart(User_id, Qty, Product_id int) (helper.Response, error) {
 
 	err := con.QueryRow(totalquery, Product_id).Scan(&price)
 	cart.Total = Qty * price
-	fmt.Println("USER ID  ", User_id)
+
 	sqlStatment := "INSERT INTO cart (user_id,product_id,qty,created_at,total) VALUES ($1,$2,$3,$4,$5)"
 	stmt, err := con.Prepare(sqlStatment)
 	if err != nil {
@@ -48,6 +47,9 @@ func AddToCart(User_id, Qty, Product_id int) (helper.Response, error) {
 	}
 	res.Status = http.StatusCreated
 	res.Message = "sukses"
+	res.Data = map[string]int{
+		"Created With Id User ": User_id,
+	}
 	return res, nil
 }
 

@@ -43,5 +43,5 @@ func DeleteCart(c echo.Context) error {
 			"message": err.Error(),
 		})
 	}
-	return c.JSON(http.StatusOK, result)
+	return c.JSON(http.StatusNoContent, result)
 }
