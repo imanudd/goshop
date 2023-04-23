@@ -41,9 +41,6 @@ func Init() *echo.Echo {
 	e.DELETE("/cart", controllers.DeleteCart, middleware.IsAuth)
 
 	e.POST("/transaction", controllers.AddTransaction, middleware.IsAuth)
-
-	// e.GET("/detailuser", controllers.FetchAllData, middleware.JWTWithConfig(middleware.JWTConfig{SigningKey: []byte("secret")}))
-
 	return e
 }
 
